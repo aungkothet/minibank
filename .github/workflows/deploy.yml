@@ -21,7 +21,7 @@ jobs:
       - name: Display current dir
         run: pwd && ls -l
       - name: Install dependencies for React
-        run: npm install
+        run: cd frontend/ && npm install
         env:
           DOT_ENV: ${{ secrets.DOT_ENV_REACT }}
       - name: Generate build for React
