@@ -16,8 +16,12 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      - name: Change Direactory to frontend
+        run: cd frontend
+      - name: Display structure
+        run: ls -R
       - name: Install dependencies for React
-        run: cd frontend && npm install
+        run: npm install
         env:
           DOT_ENV: ${{ secrets.DOT_ENV_REACT }}
       - name: Generate build for React
