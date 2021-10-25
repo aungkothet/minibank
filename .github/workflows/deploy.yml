@@ -18,8 +18,8 @@ jobs:
           node-version: 12.x
       - name: Change Direactory to frontend
         run: cd frontend
-      - name: Display structure
-        run: ls -R
+      - name: Display current dir
+        run: pwd
       - name: Install dependencies for React
         run: npm install
         env:
