@@ -50,7 +50,7 @@ export default function SignIn() {
         setOpen(true)
       }
       dispatch(setProfileData(res.data.user))
-      history.push('/home')
+      history.push('/')
     } catch (e) {
       console.error(e)
     }

@@ -10,8 +10,10 @@ import {
   MenuItem,
   Select,
 } from '@mui/material'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useAddTransactionMutation } from '../utils/transactions'
+import axios from 'axios'
+import { setProfileData } from '../utils/profile'
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />
@@ -27,13 +29,33 @@ export default function Transfer() {
   const [amt, setAmt] = React.useState()
   const [fees, setFees] = React.useState(0.0)
   const [mode, setMode] = React.useState('')
-
+const dispatch = useDispatch()
   const calculateFees = () => {
     setFees(amt * 0.05)
   }
-  const [addTransaction, { isLoading: isUpdating }] =
-    useAddTransactionMutation()
-
+  const [addTransaction, { isLoading: isUpdating }] = useAddTransactionMutation()
+  const getUpdateProfile = async () => {
+    try {
+      const res = await axios.get(
+        `${process.env.REACT_APP_BASE_URL}account/${profile.id}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          withCredentials: true,
+        }
+      )
+      if (res.data.status !== 200) {
+        setError(res.data.error)
+        setOpen(true)
+      }
+      dispatch(setProfileData(res.data.user))
+      
+    } catch (e) {
+      console.error(e)
+    }
+  }
+  
   const handleTransfer = (e) => {
     addTransaction({
       fromAccount: profile.account.id,
@@ -43,9 +65,9 @@ export default function Transfer() {
     })
       .unwrap()
       .then((payload) => {
-        console.log('fulfilled', payload)
         setError()
         setOpen(true)
+        getUpdateProfile()
       })
       .catch((error) => {
         setError(error.data.error)
@@ -71,7 +93,6 @@ export default function Transfer() {
   return (
     <div>
       <h1>Transfer money</h1>
-
       <Stack direction="row" spacing={1} sx={{ width: '100%' }}>
         <FormControl variant="filled">
           <InputLabel htmlFor="component-to">To</InputLabel>

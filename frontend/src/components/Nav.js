@@ -43,7 +43,7 @@ export const navs = [
   },
   {
     label: 'Home',
-    to: '/home',
+    to: '/',
     cmp: (
       <Default>
         <Home />

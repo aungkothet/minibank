@@ -7,6 +7,7 @@ import { useHistory } from 'react-router'
 export default function Home() {
   const history = useHistory()
   const { profile } = useSelector((state) => state.profile)
+  
   if (profile === null) {
     history.push('/signin')
     return null
