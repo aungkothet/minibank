@@ -41,15 +41,14 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            rm -rf minibank
             git clone https://github.com/aungkothet/minibank
             cd minibank/backend/
             npm install
             pm2 restart app
-      - name: Fetch built assets from Artifacts
-        uses: actions/download-artifact@v1
-        with:
-          name: react-build
-          path: /usr/share/nginx/html/minibank
+            cd ~/minibank/frontend/
+            npm run build
+            sudo cp -r build/* /usr/share/nginx/html/minibank
 
 
         
