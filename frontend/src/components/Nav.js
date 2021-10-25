@@ -109,13 +109,14 @@ export default function Nav() {
       <span
         style={{
           marginLeft: '30px',
+          textDecoration: 'underline'
         }}
         onClick={(e) => {
           e.preventDefault()
           handleSignOut()
         }}
       >
-        <a href="">Sign Out</a>
+        Sign Out
       </span>
     </nav>
   )

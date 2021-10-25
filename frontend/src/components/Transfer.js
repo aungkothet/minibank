@@ -33,7 +33,7 @@ const dispatch = useDispatch()
   const calculateFees = () => {
     setFees(amt * 0.05)
   }
-  const [addTransaction, { isLoading: isUpdating }] = useAddTransactionMutation()
+  const [addTransaction] = useAddTransactionMutation()
   const getUpdateProfile = async () => {
     try {
       const res = await axios.get(
