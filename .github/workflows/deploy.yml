@@ -16,6 +16,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
+      - name: Change Direactory to frontend
+        run: cd frontend/
       - name: Display current dir
         run: pwd && ls -l
       - name: Install dependencies for React
@@ -52,7 +54,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd backend
+            cd backend/
             npm install
             pm2 restart app
 
