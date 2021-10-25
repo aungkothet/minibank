@@ -42,13 +42,13 @@ jobs:
         run: ls -R
       - name: executing remote ssh commands using password
         uses: appleboy/ssh-action@master
+        env:
+          DOT_ENV: ${{ secrets.DOT_ENV_NODE }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.PORT }}
-          env:
-            DOT_ENV: ${{ secrets.DOT_ENV_NODE }}
           script: |
             cd backend
             npm install
